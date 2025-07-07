@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from langchain_core.messages import HumanMessage, AIMessage
-from graph import graph  
+from utils.graph import graph
+  
 
 app = FastAPI()
 
