@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000/chat")
+BACKEND_URL = os.getenv("BACKEND_URL", "https://ai-agent-usw3.onrender.com/chat")
 
 # Page config
 st.set_page_config(page_title="TailorTalk - AI Chat", layout="centered")
