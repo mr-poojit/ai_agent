@@ -123,9 +123,9 @@ streamlit run app.py
 
 ---
 
-## 📸 Screenshots
+## 📸 Live App
 
-> _Add screenshots of chat interface, scheduled meeting view, etc._
+https://aiagent-ercmglddhbr8qewribv7u2.streamlit.app/
 
 ---
 
