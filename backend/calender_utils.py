@@ -3,9 +3,9 @@ from googleapiclient.discovery import build
 from datetime import datetime
 import pytz
 
-SERVICE_ACCOUNT_FILE = 'creds.json'
+SERVICE_ACCOUNT_FILE = '/etc/secrets/creds.json'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-CALENDAR_ID = 'primary'  # Replace if using a shared calendar
+CALENDAR_ID = 'primary'  
 
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES
@@ -19,7 +19,7 @@ def get_available_slots():
     events_result = service.events().list(
     calendarId=CALENDAR_ID,
     timeMin=now,
-    maxResults=20,  # increase from 5
+    maxResults=20,  
     singleEvents=True,
     orderBy='startTime'
     ).execute()
@@ -36,7 +36,6 @@ def create_event(summary, start, end=None, attendee_email=""):
     if attendee_email:
         event["attendees"] = [{"email": attendee_email}]
 
-    # Remove None fields for safety
     event = {k: v for k, v in event.items() if v is not None}
 
     try:
