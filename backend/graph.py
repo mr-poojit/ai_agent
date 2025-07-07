@@ -5,7 +5,7 @@ from langchain_core.messages import BaseMessage, HumanMessage, ToolMessage
 from langchain_core.tools import tool
 from langgraph.graph import END, StateGraph
 from langchain_google_genai import ChatGoogleGenerativeAI
-from calender_utils import get_available_slots, create_event
+from backend.calender_utils import get_available_slots, create_event
 from datetime import datetime, timedelta
 import dateparser
 import pytz
