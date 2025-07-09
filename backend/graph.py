@@ -18,12 +18,52 @@ class GraphState(TypedDict):
 
 # 🛠️ Tool: Check availability
 @tool
-def check_availability() -> str:
-    """Returns your next upcoming Google Calendar events."""
-    events = get_available_slots()
-    if not events:
-        return "✅ You're free for the next few hours!"
-    return "\n".join([f"{e['start']['dateTime']} - {e.get('summary', 'No Title')}" for e in events])
+def check_availability(day: str = "today") -> str:
+    """
+    Returns available time slots for the specified day ('today' or 'tomorrow').
+    Scans Google Calendar events and finds gaps between meetings.
+    """
+    try:
+        tz = pytz.timezone("Asia/Kolkata")
+        now = datetime.now(tz)
+
+        if day.lower() == "tomorrow":
+            target_day = now + timedelta(days=1)
+        else:
+            target_day = now
+
+        start_of_day = tz.localize(datetime(target_day.year, target_day.month, target_day.day, 0, 0))
+        end_of_day = start_of_day + timedelta(days=1)
+
+        # Get all events for the day
+        events = get_available_slots()
+        day_events = [
+            e for e in events
+            if "dateTime" in e["start"]
+            and start_of_day <= dateparser.parse(e["start"]["dateTime"]) <= end_of_day
+        ]
+        day_events.sort(key=lambda e: e["start"]["dateTime"])
+
+        # Build available slots
+        free_slots = []
+        current_time = start_of_day
+        for event in day_events:
+            event_start = dateparser.parse(event["start"]["dateTime"]).astimezone(tz)
+            if event_start > current_time:
+                free_slots.append(f"{current_time.strftime('%I:%M %p')} - {event_start.strftime('%I:%M %p')}")
+            event_end = dateparser.parse(event["end"]["dateTime"]).astimezone(tz)
+            current_time = max(current_time, event_end)
+
+        if current_time < end_of_day:
+            free_slots.append(f"{current_time.strftime('%I:%M %p')} - {end_of_day.strftime('%I:%M %p')}")
+
+        if not free_slots:
+            return f"❌ No free slots {day.lower()}."
+        return f"🕒 Free slots {day.lower()}:\n" + "\n".join(free_slots)
+
+    except Exception as e:
+        return f"❌ Error checking availability: {str(e)}"
+
 
 # 🛠️ Tool: Book a meeting
 @tool

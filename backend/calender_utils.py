@@ -3,7 +3,7 @@ from googleapiclient.discovery import build
 from datetime import datetime
 import pytz
 
-SERVICE_ACCOUNT_FILE = '/etc/secrets/creds.json'
+SERVICE_ACCOUNT_FILE = 'creds.json'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 CALENDAR_ID = 'primary'  
 
