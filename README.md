@@ -1,4 +1,4 @@
-# TailorTalk – AI Appointment Assistant
+# AI Appointment Assistant
 
 TailorTalk is a conversational AI agent that helps users schedule Google Calendar meetings using natural language. It uses Gemini 1.5 Flash for language understanding and integrates with Google Calendar via a service account.
 

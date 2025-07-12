@@ -9,7 +9,7 @@ load_dotenv()
 BACKEND_URL = os.getenv("BACKEND_URL", "https://ai-agent-usw3.onrender.com/chat")
 
 # Page config
-st.set_page_config(page_title="TailorTalk - AI Chat", layout="centered")
+st.set_page_config(page_title="AI Chat", layout="centered")
 
 # --- CSS Styling ---
 st.markdown("""
@@ -78,7 +78,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Header ---
-st.markdown("<h1 style='text-align:center;'>TailorTalk - AI Appointment Assistant</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center;'>AI Appointment Assistant</h1>", unsafe_allow_html=True)
 
 # --- Chat History ---
 if "chat_history" not in st.session_state:
